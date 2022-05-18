@@ -38,10 +38,10 @@ export function Home() {
     const options = {
       method: "GET",
       headers: {
-        "Accept-Encoding": "application/gzip",
-        "X-RapidAPI-Host": "google-translate1.p.rapidapi.com",
-        "X-RapidAPI-Key": "f6437b39aemsh26abf7b620f32eep1916bajsn1b11b8e70e1a",
-      },
+        'Accept-Encoding': 'application/gzip',
+        'X-RapidAPI-Host': 'google-translate1.p.rapidapi.com',
+        'X-RapidAPI-Key': 'f171fa75a4mshc549608b005200dp1ae02ejsn2ee73b5f5dab'
+      }
     };
 
     fetch(
@@ -69,12 +69,13 @@ const options = {
 		'content-type': 'application/x-www-form-urlencoded',
 		'Accept-Encoding': 'application/gzip',
 		'X-RapidAPI-Host': 'google-translate1.p.rapidapi.com',
-		'X-RapidAPI-Key': 'f6437b39aemsh26abf7b620f32eep1916bajsn1b11b8e70e1a'
+		'X-RapidAPI-Key': 'f171fa75a4mshc549608b005200dp1ae02ejsn2ee73b5f5dab'
 	},
 	body: encodedParams
 };
 
 fetch('https://google-translate1.p.rapidapi.com/language/translate/v2', options)
+
 	.then(response => response.json())
   .then((response) => setOutputValue(response.data.translations[0].translatedText))
 	//.then(response => console.log(response.data.translations[0].translatedText))
