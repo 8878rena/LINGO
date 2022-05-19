@@ -40,7 +40,7 @@ export function Home() {
       headers: {
         'Accept-Encoding': 'application/gzip',
         'X-RapidAPI-Host': 'google-translate1.p.rapidapi.com',
-        'X-RapidAPI-Key': 'f171fa75a4mshc549608b005200dp1ae02ejsn2ee73b5f5dab'
+        'X-RapidAPI-Key': '126d7a90d8msh004942d9af48c13p137cbajsncbc18b6375f5'
       }
     };
 
@@ -69,7 +69,7 @@ const options = {
 		'content-type': 'application/x-www-form-urlencoded',
 		'Accept-Encoding': 'application/gzip',
 		'X-RapidAPI-Host': 'google-translate1.p.rapidapi.com',
-		'X-RapidAPI-Key': 'f171fa75a4mshc549608b005200dp1ae02ejsn2ee73b5f5dab'
+		'X-RapidAPI-Key': '126d7a90d8msh004942d9af48c13p137cbajsncbc18b6375f5'
 	},
 	body: encodedParams
 };
@@ -125,7 +125,7 @@ fetch('https://google-translate1.p.rapidapi.com/language/translate/v2', options)
           TRANSLATE A SENTENCE
         </Typography>
         <div>
-        <TextField
+        <TextField sx={{width: "90%"}}
           id="outlined-multiline-flexible"
           label="Translate"
           multiline

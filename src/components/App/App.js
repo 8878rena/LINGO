@@ -11,13 +11,16 @@ import {
   } from "react-router-dom";
 
 export const Context = React.createContext("");
+export const Context2 = React.createContext("");
 
 
 function App() {
   const [language, setLanguage] = useState("");
+  const [score, setScore]=useState(0);
   return (
     <div>
       <Context.Provider value = {{language, setLanguage}} >
+      <Context2.Provider value ={{score, setScore}}>
     <HashRouter>
         <Header />
         <Routes>
@@ -25,7 +28,7 @@ function App() {
           <Route path="/exercises" element={<Exercises />}></Route>
           <Route path="/scores" element= {<Scores />}></Route>
         </Routes>
-      </HashRouter></Context.Provider>
+      </HashRouter></Context2.Provider></Context.Provider>
       </div>
   );
 }
