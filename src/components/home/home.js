@@ -13,7 +13,8 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import {Context} from '../App/App';
-
+import { setSelectionRange } from "@testing-library/user-event/dist/utils";
+import { Context2 } from "../App/App";
 
 export function Home() {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ export function Home() {
   const [allLanguages, setAllLanguages] = useState([{}]);
   const [value, setValue] = React.useState('');
   const [outputValue, setOutputValue] = React.useState('');
-
+  const {score, setScore } = useContext(Context2);
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -31,6 +32,7 @@ export function Home() {
 
   const handleLanguageChange = (event) => {
     setLanguage(event.target.value);
+    setScore(0);
     console.log(language);
   };
 
@@ -40,7 +42,7 @@ export function Home() {
       headers: {
         'Accept-Encoding': 'application/gzip',
         'X-RapidAPI-Host': 'google-translate1.p.rapidapi.com',
-        'X-RapidAPI-Key': '126d7a90d8msh004942d9af48c13p137cbajsncbc18b6375f5'
+        'X-RapidAPI-Key': '793e7544cfmshc86b84a64c474cep19d526jsnbfc5630f0ae8'
       }
     };
 
@@ -69,7 +71,7 @@ const options = {
 		'content-type': 'application/x-www-form-urlencoded',
 		'Accept-Encoding': 'application/gzip',
 		'X-RapidAPI-Host': 'google-translate1.p.rapidapi.com',
-		'X-RapidAPI-Key': '126d7a90d8msh004942d9af48c13p137cbajsncbc18b6375f5'
+		'X-RapidAPI-Key': '793e7544cfmshc86b84a64c474cep19d526jsnbfc5630f0ae8'
 	},
 	body: encodedParams
 };

@@ -10,9 +10,8 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
 import FormLabel from "@mui/material/FormLabel";
-import { ConstructionOutlined, PanoramaPhotosphere } from "@mui/icons-material";
 import { Typography } from "@mui/material";
-
+import props from 'prop-types'
 const exerciseQuestions = [
   {
     question: "I ate the ___________.",
@@ -66,13 +65,10 @@ const exerciseQuestions = [
   },
 ];
 
+
 export function Exercises() {
   const navigate = useNavigate();
-  //const [language, setLanguage] = useState("");
   const { language, setLanguage } = useContext(Context);
-
-  //console.log(setLanguage)
-  //const [value, setValue] = React.useState('');
   const [outputValueString, setOutputValueString] = React.useState();
   const [outputValueArray, setOutputValueArray] = React.useState([
     "apple",
@@ -85,15 +81,9 @@ export function Exercises() {
   const [currQuestion, setCurrQuestion] = React.useState(
     exerciseQuestions[currIndex]
   );
-  const [pointCounter, setPointCounter] = useState(0);
+  const {score, setScore } = useContext(Context2);
   
-
-  /* function quitFunction(){
-        <Alert severity="info">This is an info alert — check it out!</Alert>
-    } */
-  /* useEffect(() => {
-      translateSentence();
-    },[])*/
+   
   function translateSentence() {
     const encodedParams = new URLSearchParams();
     console.log("in fetch");
@@ -108,7 +98,7 @@ export function Exercises() {
         "content-type": "application/x-www-form-urlencoded",
         "Accept-Encoding": "application/gzip",
         "X-RapidAPI-Host": "google-translate1.p.rapidapi.com",
-        "X-RapidAPI-Key": "126d7a90d8msh004942d9af48c13p137cbajsncbc18b6375f5",
+        "X-RapidAPI-Key": '793e7544cfmshc86b84a64c474cep19d526jsnbfc5630f0ae8',
       },
       body: encodedParams,
     };
@@ -122,38 +112,43 @@ export function Exercises() {
         setOutputValueString(response.data.translations[0].translatedText)
       )
       .then(() => setOutputValueArray(outputValueString.split(",")))
-      //.then((response) => console.log(response.data.translations[0].translatedText))
-      //.then(response => console.log(response))
+     
       .catch((err) => console.error(err));
-    //setOutputValueArray(outputValueString.split(","));
+    
     console.log(outputValueString);
   }
 
   const handleClick = () => {
     alert("Do you want to see your scores before you go?");
     window.location = "scores#/scores";
-    // alert( <Alert severity="info">This is an info alert — check it out!</Alert>);
+  
   };
+  function nextQ()  {
+    setCurrIndex(currIndex +1);
+    setCurrQuestion(exerciseQuestions[currIndex]);
+    //console.log(currIndex);
+    //console.log(currQuestion);
+  }
 
   return (
     <div>
       <div class="question">
         <Typography variant="h5">{currQuestion.question}</Typography>
-        {/* {value} = 'apple  dog  trip  run'  */}
-        <div>Points: {pointCounter}</div>
-        {/* <div>{outputValueArray}</div> */}
+  
+        <div>Points: {score}</div>
+       
       </div>
       <AnswerRadio
         currQuestion={currQuestion}
         translateSentence={translateSentence}
         outputValueArray={outputValueArray}
       />
-      {/* <Button size="medium" onClickCapture={()=>translateSentence()}>I'M READY!</Button> */}
       <div>
-        {/* <Button onClick={() => <Alert severity="info">This is an info alert — check it out!</Alert> }>
-            QUIT
-          </Button> */}
+        
+        <Button onClick={()=>nextQ()}>NEXT QUESTION</Button>
         <Button onClick={handleClick}>QUIT</Button>
+  
+        
       </div>
     </div>
   );
@@ -163,7 +158,7 @@ function AnswerRadio(props) {
   const [error, setError] = React.useState(false);
   const [helperText, setHelperText] = React.useState("");
   const [translatedAnswers, setTranslatedAnswers] = React.useState([]);
-  const { score, setScore } = useContext(Context2);
+  const {score, setScore } = useContext(Context2);
   const [showAnswers, setShowAnswers] = useState(false);
   
   const handleRadioChange = (event) => {
@@ -178,6 +173,7 @@ function AnswerRadio(props) {
     if (value === props.currQuestion.correct) {
       setHelperText("You got it!");
       setScore(score + 1);
+      console.log(score);
       setError(false);
     } else if (value !== props.currQuestion.correct && value !== null) {
       setHelperText("Sorry, wrong answer!");
@@ -204,9 +200,10 @@ function AnswerRadio(props) {
 
   function loadAnswers() {
     props.translateSentence();
+    props.translateSentence();
     setShowAnswers(true);
   }
-  function loadQuestion() {}
+  
   return (
     <form onSubmit={handleSubmit}>
       <Button onClick={() => loadAnswers()}>load answers</Button>
@@ -267,7 +264,8 @@ function AnswerRadio(props) {
           Check Answer
         </Button>
       </FormControl>
-      {/* <Button onClick={()=> loadNextQuestion}>NEXT QUESTION</Button> */}
+      
+     
     </form>
   );
 }
