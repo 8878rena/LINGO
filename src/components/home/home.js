@@ -18,9 +18,7 @@ import { Context2 } from "../App/App";
 
 export function Home() {
   const navigate = useNavigate();
-  //const [language, setLanguage] = useState("");
   const {language, setLanguage} = useContext(Context);
-  //console.log(setLanguage)
   const [allLanguages, setAllLanguages] = useState([{}]);
   const [value, setValue] = React.useState('');
   const [outputValue, setOutputValue] = React.useState('');
@@ -33,7 +31,7 @@ export function Home() {
   const handleLanguageChange = (event) => {
     setLanguage(event.target.value);
     setScore(0);
-    console.log(language);
+    
   };
 
   function loadLang() {
@@ -42,7 +40,7 @@ export function Home() {
       headers: {
         'Accept-Encoding': 'application/gzip',
         'X-RapidAPI-Host': 'google-translate1.p.rapidapi.com',
-        'X-RapidAPI-Key': '793e7544cfmshc86b84a64c474cep19d526jsnbfc5630f0ae8'
+        'X-RapidAPI-Key': 'b73f9c2401mshcedd7e1f12ccedfp1248f8jsn65831379a3f4'
       }
     };
 
@@ -59,8 +57,6 @@ export function Home() {
 
 function translateSentence(){
     const encodedParams = new URLSearchParams();
-    // encodedParams.append("q", value);
-    // encodedParams.append("target", language);
     encodedParams.append("q", value);
     encodedParams.append("target", language.language);
     encodedParams.append("source", "en");
@@ -71,7 +67,7 @@ const options = {
 		'content-type': 'application/x-www-form-urlencoded',
 		'Accept-Encoding': 'application/gzip',
 		'X-RapidAPI-Host': 'google-translate1.p.rapidapi.com',
-		'X-RapidAPI-Key': '793e7544cfmshc86b84a64c474cep19d526jsnbfc5630f0ae8'
+		'X-RapidAPI-Key': 'b73f9c2401mshcedd7e1f12ccedfp1248f8jsn65831379a3f4'
 	},
 	body: encodedParams
 };
@@ -80,7 +76,6 @@ fetch('https://google-translate1.p.rapidapi.com/language/translate/v2', options)
 
 	.then(response => response.json())
   .then((response) => setOutputValue(response.data.translations[0].translatedText))
-	//.then(response => console.log(response.data.translations[0].translatedText))
 	.catch(err => console.error(err));
 
   }
@@ -88,10 +83,6 @@ fetch('https://google-translate1.p.rapidapi.com/language/translate/v2', options)
 
   return (
     <div>
-      {/* <Button onClick={()=>loadLang()}>Try Me</Button>
-    <div>{allLanguages.map((item, index) =>
-      <div key={index}>{item.language}</div>
-    )}</div> */}
       <Box sx={{ minWidth: 120 }}>
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">
@@ -110,7 +101,6 @@ fetch('https://google-translate1.p.rapidapi.com/language/translate/v2', options)
                 {item.language}
               </MenuItem>
             ))}
-            {/* (<div key={index}>{item.language}</div>)} */}
           </Select>
         </FormControl>
         <div>
@@ -129,24 +119,34 @@ fetch('https://google-translate1.p.rapidapi.com/language/translate/v2', options)
         <div>
         <TextField sx={{width: "90%"}}
           id="outlined-multiline-flexible"
-          label="Translate"
+          label=""
           multiline
           maxRows={4}
           value={value}
           onChange={handleChange}
         />
         </div>
-        {/* {<Typography sx={{ fontSize: 28 }} color="text.secondary" gutterBottom>
-          <div>{outputValue.map((item, index) =>
-      <div key={index}>{item.translations}</div>
-    )}</div>
-        </Typography>} */}
         
       </CardContent>
       <CardActions>
         <Button size="medium" onClickCapture={()=>translateSentence()}>Translate</Button>
       </CardActions>
-      <div>{outputValue}</div>
+
+      <Box
+        sx={{
+          display: 'flex',
+          m: 1,
+          p: 1,
+          fontSize: '0.875rem',
+          fontWeight: '700',
+        }}
+      >
+        <Typography variant="h5" component="div">
+        <div>{outputValue}</div>
+        </Typography>
+          
+      </Box>
+   
     </Card>
     </div>
   );

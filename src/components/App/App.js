@@ -12,15 +12,18 @@ import {
 
 export const Context = React.createContext("");
 export const Context2 = React.createContext("");
+export const Context3 = React.createContext("");
 
 
 function App() {
   const [language, setLanguage] = useState("");
   const [score, setScore]=useState(0);
+  const [scoresArray, setScoresArray]= useState([]);
   return (
     <div>
       <Context.Provider value = {{language, setLanguage}} >
       <Context2.Provider value ={{score, setScore}}>
+      <Context3.Provider value={{scoresArray, setScoresArray}}>
     <HashRouter>
         <Header />
         <Routes>
@@ -28,7 +31,7 @@ function App() {
           <Route path="/exercises" element={<Exercises />}></Route>
           <Route path="/scores" element= {<Scores />}></Route>
         </Routes>
-      </HashRouter></Context2.Provider></Context.Provider>
+      </HashRouter></Context3.Provider></Context2.Provider></Context.Provider>
       </div>
   );
 }

@@ -1,5 +1,4 @@
 import Button from "@mui/material/Button";
-import Alert from "@mui/material/Alert";
 import { useNavigate } from "react-router-dom";
 import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../App/App";
@@ -9,9 +8,13 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
-import FormLabel from "@mui/material/FormLabel";
 import { Typography } from "@mui/material";
-import props from 'prop-types'
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+
+
 const exerciseQuestions = [
   {
     question: "I ate the ___________.",
@@ -20,12 +23,12 @@ const exerciseQuestions = [
   },
   {
     question: "I ___________ the pink one.",
-    answers: "happy, Samuel, pretend, like",
+    answers: "happy, Samuel, decide, want",
     correct: "4",
   },
   {
     question: "The house was ___________ the park.",
-    answers: "people, near, family, silly",
+    answers: "people, next to, family, silly",
     correct: "2",
   },
   {
@@ -37,11 +40,6 @@ const exerciseQuestions = [
     question: "I feel ___________ when I hear bad news.",
     answers: "happy, sad, funny, big",
     correct: "2",
-  },
-  {
-    question: "It is nice and ___________ outside!",
-    answers: "sunny, group, chat, wonder",
-    correct: "1",
   },
   {
     question: "The game was ___________",
@@ -86,8 +84,6 @@ export function Exercises() {
    
   function translateSentence() {
     const encodedParams = new URLSearchParams();
-    console.log("in fetch");
-    console.log(currQuestion.answers);
     encodedParams.append("q", currQuestion.answers);
     encodedParams.append("target", language.language);
     encodedParams.append("source", "en");
@@ -98,7 +94,7 @@ export function Exercises() {
         "content-type": "application/x-www-form-urlencoded",
         "Accept-Encoding": "application/gzip",
         "X-RapidAPI-Host": "google-translate1.p.rapidapi.com",
-        "X-RapidAPI-Key": '793e7544cfmshc86b84a64c474cep19d526jsnbfc5630f0ae8',
+        "X-RapidAPI-Key": 'b73f9c2401mshcedd7e1f12ccedfp1248f8jsn65831379a3f4',
       },
       body: encodedParams,
     };
@@ -114,8 +110,6 @@ export function Exercises() {
       .then(() => setOutputValueArray(outputValueString.split(",")))
      
       .catch((err) => console.error(err));
-    
-    console.log(outputValueString);
   }
 
   const handleClick = () => {
@@ -126,28 +120,68 @@ export function Exercises() {
   function nextQ()  {
     setCurrIndex(currIndex +1);
     setCurrQuestion(exerciseQuestions[currIndex]);
-    //console.log(currIndex);
-    //console.log(currQuestion);
   }
 
   return (
     <div>
-      <div class="question">
+      
+      <Box
+        sx={{
+          display: 'flex',
+          m: 1,
+          p: 1,
+          flexDirection: 'row-reverse'
+        }}
+      >
+        <Card sx={{ minWidth: 275, justifySelf: "right", justifyContent: "right" }}>
+      <CardContent>
+        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+          POINTS:
+        </Typography>
+        <Typography variant="h5" component="div">
+         {score}
+        </Typography>
+        
+      </CardContent>
+      
+    </Card>
+    </Box> 
+    
+    <Box
+     sx={{
+      display: 'flex',
+      m: 1,
+      p: 1,
+      flexDirection: 'row',
+      
+    }}>
+ <div style={{
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+}}>
         <Typography variant="h5">{currQuestion.question}</Typography>
-  
-        <div>Points: {score}</div>
-       
-      </div>
+
+        </div>
+      </Box>
       <AnswerRadio
         currQuestion={currQuestion}
         translateSentence={translateSentence}
         outputValueArray={outputValueArray}
       />
       <div>
-        
-        <Button onClick={()=>nextQ()}>NEXT QUESTION</Button>
+      <Button onClick={()=>nextQ()}>NEXT QUESTION</Button>
+      <Box
+        sx={{
+          display: 'flex',
+          m: 1,
+          p: 1,
+          flexDirection: 'row-reverse',
+          fontWeight: '1000'
+        }}
+      > 
         <Button onClick={handleClick}>QUIT</Button>
-  
+  </Box>
         
       </div>
     </div>
@@ -173,7 +207,6 @@ function AnswerRadio(props) {
     if (value === props.currQuestion.correct) {
       setHelperText("You got it!");
       setScore(score + 1);
-      console.log(score);
       setError(false);
     } else if (value !== props.currQuestion.correct && value !== null) {
       setHelperText("Sorry, wrong answer!");
@@ -184,19 +217,7 @@ function AnswerRadio(props) {
     }
   };
 
-  /* useEffect(() =>{
-     props.currQuestion.answers.map( (answer, index) => {
-         props.translateSentence(answer);
-        const tempTranslations =[...translatedAnswers];
-        const newValue = props.outputValue;
-        console.log(newValue);
-        const tempTranslations2 = [...tempTranslations, props.outputValue];
-        console.log(props.outputValue);
-        setTranslatedAnswers(tempTranslations2);
-    })
-    props.translateSentence();
-    console.log(translatedAnswers);
-  },[translatedAnswers]); */
+  
 
   function loadAnswers() {
     props.translateSentence();
@@ -208,7 +229,7 @@ function AnswerRadio(props) {
     <form onSubmit={handleSubmit}>
       <Button onClick={() => loadAnswers()}>load answers</Button>
       <FormControl sx={{ m: 3 }} error={error} variant="standard">
-{/* {showAnswers ? <div></div> : <div></div>} */}
+
 
 
         {showAnswers && (
@@ -218,15 +239,7 @@ function AnswerRadio(props) {
             value={value}
             onChange={handleRadioChange}
           >
-            {/* {translatedAnswers.map((answer, index) => {
-             <FormControlLabel key={index} value="hi" control={<Radio />} label="The best!" />
-})}
-
-          <FormControlLabel value="worst" control={<Radio />} label="The worst." /> */}
-
-            {/* {props.outputValue.map((answer, index) => {
-             <FormControlLabel key={index} value={answer} control={<Radio />} label="The best!" />
-})} */}
+           
 
             {props.outputValueArray.length === 0 ? (
               <div>Loading</div>
