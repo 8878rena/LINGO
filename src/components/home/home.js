@@ -40,7 +40,7 @@ export function Home() {
       headers: {
         'Accept-Encoding': 'application/gzip',
         'X-RapidAPI-Host': 'google-translate1.p.rapidapi.com',
-        'X-RapidAPI-Key': 'b73f9c2401mshcedd7e1f12ccedfp1248f8jsn65831379a3f4'
+        'X-RapidAPI-Key': 'febe9083afmshfb1adff99f34a49p127917jsnc93b5a839611'
       }
     };
 
@@ -67,7 +67,7 @@ const options = {
 		'content-type': 'application/x-www-form-urlencoded',
 		'Accept-Encoding': 'application/gzip',
 		'X-RapidAPI-Host': 'google-translate1.p.rapidapi.com',
-		'X-RapidAPI-Key': 'b73f9c2401mshcedd7e1f12ccedfp1248f8jsn65831379a3f4'
+		'X-RapidAPI-Key': 'febe9083afmshfb1adff99f34a49p127917jsnc93b5a839611'
 	},
 	body: encodedParams
 };
