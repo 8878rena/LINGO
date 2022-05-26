@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/lingo/static/css/main.073c9b0a.css",
-    "main.js": "/lingo/static/js/main.9003e52f.js",
+    "main.js": "/lingo/static/js/main.15b89423.js",
     "static/js/787.760a15dd.chunk.js": "/lingo/static/js/787.760a15dd.chunk.js",
     "index.html": "/lingo/index.html",
     "main.073c9b0a.css.map": "/lingo/static/css/main.073c9b0a.css.map",
-    "main.9003e52f.js.map": "/lingo/static/js/main.9003e52f.js.map",
+    "main.15b89423.js.map": "/lingo/static/js/main.15b89423.js.map",
     "787.760a15dd.chunk.js.map": "/lingo/static/js/787.760a15dd.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.073c9b0a.css",
-    "static/js/main.9003e52f.js"
+    "static/js/main.15b89423.js"
   ]
 }
