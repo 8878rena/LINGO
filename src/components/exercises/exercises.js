@@ -114,7 +114,8 @@ export function Exercises() {
 
   const handleClick = () => {
     alert("Do you want to see your scores before you go?");
-    window.location = "scores#/scores";
+    //window.location = "scores#/scores";
+    window.location="https://8878rena.github.io/lingo/scores#/scores"
   
   };
   function nextQ()  {
